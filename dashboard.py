@@ -17,6 +17,12 @@ if 'loan_data' not in st.session_state:
 if 'overpayments' not in st.session_state:
     st.session_state.overpayments = []
 
+if 'is_analysis_constant_overpayment' not in st.session_state:
+    st.session_state.is_analysis_constant_overpayment = False
+
+if 'is_custom_overpayment' not in st.session_state:
+    st.session_state.is_custom_overpayment = False
+
 
 def one_time_overpayment_option(loan_term: int) -> Overpayment:
     overpayment_month = st.sidebar.number_input('Month of Overpayment', min_value=1, max_value=loan_term, value=10)
@@ -113,8 +119,9 @@ def sidebar():
                                           loan_annual_rate=annual_rate,
                                           months=months)
 
-    is_analysis_constant_overpayment = st.sidebar.toggle('Include prepayment', value=True)
+    is_analysis_constant_overpayment = st.sidebar.toggle('Include prepayment', value=False)
     if is_analysis_constant_overpayment:
+        st.session_state.is_analysis_constant_overpayment = True
         analysis_overpayment_value = st.sidebar.number_input('Const overpayment (PLN)', min_value=1.0,
                                                              max_value=loan_amount,
                                                              value=200.0)
@@ -134,11 +141,20 @@ def sidebar():
         st.session_state.overpayments.append(
             OverpaymentData(name='Overpayment with constant monthly payment value',
                             overpayments=overpayments_to_df([constant_overpayment_by_payment])))
-    is_add_custom_overpayments = st.sidebar.toggle('Current custom overpayments', value=True)
+    else:
+        st.session_state.is_analysis_constant_overpayment = False
+
+    is_add_custom_overpayments = st.sidebar.toggle('Current custom overpayments', value=False)
+
+    # todo - generate multi custom overpayments examples, not only one with one or more overpayments
+    # user can give a name for his custom overpayments
     if is_add_custom_overpayments:
         generate_overpayment(st.session_state.loan_data.months)
+        st.session_state.is_custom_overpayment = True
+    else:
+        st.session_state.is_custom_overpayment = False
 
-    if st.session_state.custom_overpayments:
+    if st.session_state.is_custom_overpayment and st.session_state.custom_overpayments:
         st.sidebar.title('Current custom overpayments')
         display_custom_overpayment()
 
@@ -150,7 +166,7 @@ def main():
 
     if st.sidebar.button('Calculate Loan Schedule'):
         custom_overpayments = st.session_state.custom_overpayments
-        if custom_overpayments is not None and custom_overpayments:
+        if st.session_state.is_custom_overpayment and custom_overpayments is not None and custom_overpayments:
             print(f'custom_overpayments = {custom_overpayments}')
             st.session_state.overpayments.append(OverpaymentData(name='Custom overpayment',
                                                                  overpayments=overpayments_to_df(custom_overpayments)))
@@ -184,16 +200,17 @@ def main():
         schedules['No overpayment'] = no_overpayment_schedule
         summarises['No overpayment'] = no_overpayment_summary
 
-        for overpayment in overpayments:
-            name = overpayment.name
-            print(f'overpayment name {name}')
-            schedule = generate_schedule(principal=loan_amount,
-                                         annual_rate=annual_rate,
-                                         months=months,
-                                         overpayment_name=name,
-                                         overpayments=overpayment.overpayments)
-            summarises[name] = summarize_loan(schedule)
-            schedules[name] = schedule
+        if st.session_state.is_custom_overpayment or st.session_state.is_analysis_constant_overpayment:
+            for overpayment in overpayments:
+                name = overpayment.name
+                print(f'overpayment name {name}')
+                schedule = generate_schedule(principal=loan_amount,
+                                             annual_rate=annual_rate,
+                                             months=months,
+                                             overpayment_name=name,
+                                             overpayments=overpayment.overpayments)
+                summarises[name] = summarize_loan(schedule)
+                schedules[name] = schedule
 
         for key, summary in summarises.items():
             st.subheader(f'Loan Summary: {key}')
