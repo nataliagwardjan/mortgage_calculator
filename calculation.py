@@ -1,7 +1,10 @@
+from typing import Callable
+
 import numpy_financial as npf
 import pandas as pd
 from pandas import DataFrame
 
+from loan_data import LoanSummary
 from loan_schedule import ScheduleUnit
 from overpayment import OverpaymentType, Overpayment
 from utils import OVERPAYMENT_IS_CONSTANT, OVERPAYMENT_VALUE, OVERPAYMENT_START, OVERPAYMENT_END, round_math, \
@@ -132,17 +135,13 @@ def generate_schedule(principal: float,
     return pd.DataFrame([vars(item) for item in schedule])
 
 
-def summarize_loan(df: DataFrame) -> dict:
+def summarize_loan(df: DataFrame) -> LoanSummary:
     loan_amount = df['capital'][0] + df['overpayment'][0] + df['remaining_balance'][0]
     total_interest = df['interest'].sum()
     total_cost = loan_amount + total_interest
     last_month = int(df['month'].max())
-    years = last_month // 12
-    rest_month = last_month - (years * 12)
 
-    return {
-        'Loan amount': round_math(loan_amount, 2),
-        'Total interest': round_math(total_interest, 2),
-        'Total loan cost': round_math(total_cost, 2),
-        'Last month': f'{last_month} ({years} years and {rest_month} months)'
-    }
+    return LoanSummary(loan_amount=round_math(loan_amount, 2),
+                       total_interest=round_math(total_interest, 2),
+                       total_loan_cost=round_math(total_cost, 2),
+                       last_month=round_math(last_month, 2))

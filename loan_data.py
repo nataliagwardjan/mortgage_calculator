@@ -15,3 +15,14 @@ class LoanData:
         return (f'loan_amount={self.loan_amount}, '
                 f'loan_annual_rate={self.loan_annual_rate}, '
                 f'months={self.months}')
+
+
+class LoanSummary:
+    def __init__(self, loan_amount: float, total_interest: float, total_loan_cost: float, last_month: int):
+        self.loan_amount = loan_amount
+        self.total_interest = total_interest
+        self.total_loan_cost = total_loan_cost
+        self.last_month = last_month
+        self.years = self.last_month // 12
+        self.rest_months = self.last_month - (self.years * 12)
+
