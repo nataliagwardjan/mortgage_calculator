@@ -1,13 +1,14 @@
-from typing import Callable
-
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 
-from calculation import summarize_loan
+from calculator.calculation import summarize_loan
+from dashboard import app_state
 
+state = app_state
+_ = state.translation
 
-def plot_remaining_balance(schedules: dict, _: Callable[[str], str]):
+def plot_remaining_balance(schedules: dict):
     plt.figure(figsize=(10, 6))
     for label, df in schedules.items():
         plt.plot(df['month'], df['remaining_balance'], label=label)
@@ -20,7 +21,7 @@ def plot_remaining_balance(schedules: dict, _: Callable[[str], str]):
     plt.clf()
 
 
-def plot_total_loan_cost(schedules: dict, _: Callable[[str], str]):
+def plot_total_loan_cost(schedules: dict):
     labels = []
     costs = []
     for label, df in schedules.items():
@@ -40,7 +41,7 @@ def plot_total_loan_cost(schedules: dict, _: Callable[[str], str]):
     plt.clf()
 
 
-def plot_loan_duration(schedules: dict, _: Callable[[str], str]):
+def plot_loan_duration(schedules: dict):
     labels = []
     durations = []
     formatted_labels = []

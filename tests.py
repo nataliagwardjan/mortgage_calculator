@@ -1,7 +1,7 @@
 import pytest
 
-from calculation import generate_schedule
-from overpayment import Overpayment, OverpaymentType, overpayments_to_df
+from calculator.calculation import generate_schedule
+from calculator.overpayment import Overpayment, OverpaymentType, overpayments_to_df
 
 test_cases = [
     {

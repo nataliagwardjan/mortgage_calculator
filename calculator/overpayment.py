@@ -42,9 +42,10 @@ class Overpayment:
             OVERPAYMENT_IS_CONSTANT: self.is_constant_payment
         }
 
+
 class OverpaymentData:
     def __init__(self, name: str,
-                 overpayments: pd.DataFrame):
+                 overpayments: list[Overpayment]):
         self.name = name
         self.overpayments = overpayments
 
@@ -54,6 +55,9 @@ class OverpaymentData:
 
     def __str__(self):
         return f'{self.name}: {self.overpayments}'
+
+    def add_overpayment(self, overpayment: Overpayment):
+        self.overpayments.append(overpayment)
 
 
 def overpayments_to_df(overpayments: list[Overpayment]) -> pd.DataFrame:

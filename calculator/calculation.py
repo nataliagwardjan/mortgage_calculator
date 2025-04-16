@@ -1,14 +1,22 @@
-from typing import Callable
-
 import numpy_financial as npf
 import pandas as pd
 from pandas import DataFrame
 
+from dashboard import app_state
 from loan_data import LoanSummary
 from loan_schedule import ScheduleUnit
-from overpayment import OverpaymentType, Overpayment
+from overpayment import OverpaymentType, Overpayment, OverpaymentData, overpayments_to_df
 from utils import OVERPAYMENT_IS_CONSTANT, OVERPAYMENT_VALUE, OVERPAYMENT_START, OVERPAYMENT_END, round_math, \
     OVERPAYMENT_TYPE
+
+state = app_state
+_ = app_state.translation
+
+
+class Result:
+    def __init__(self, schedules: dict, summarises: dict):
+        self.schedules = schedules
+        self.summarises = summarises
 
 
 def generate_schedule(principal: float,
@@ -145,3 +153,37 @@ def summarize_loan(df: DataFrame) -> LoanSummary:
                        total_interest=round_math(total_interest, 2),
                        total_loan_cost=round_math(total_cost, 2),
                        last_month=round_math(last_month, 2))
+
+
+def calculate_result() -> Result:
+    custom_overpayments = state.custom_overpayments_set
+    if state.is_custom_overpayment and custom_overpayments:
+        print(f'Custom_overpayments = {custom_overpayments}')
+        for overpayment_data in custom_overpayments:
+            state.overpayments_set.append(overpayment_data)
+
+    schedules = {}
+    summarises = {}
+    no_overpayment_schedule = generate_schedule(principal=state.loan_data.loan_amount,
+                                                annual_rate=state.loan_data.loan_annual_rate,
+                                                months=state.loan_data.months,
+                                                overpayment_name=_('No overpayment'),
+                                                overpayments=pd.DataFrame())
+    no_overpayment_summary = summarize_loan(no_overpayment_schedule)
+    schedules[_('No overpayment')] = no_overpayment_schedule
+    summarises[_('No overpayment')] = no_overpayment_summary
+
+    if state.is_custom_overpayment or state.is_analysis_constant_overpayment:
+        overpayments: list[OverpaymentData] = state.overpayments_set
+        for overpayment in overpayments:
+            name = overpayment.name
+            print(f'Overpayment name {name}')
+            schedule = generate_schedule(principal=state.loan_data.loan_amount,
+                                         annual_rate=state.loan_data.loan_annual_rate,
+                                         months=state.loan_data.months,
+                                         overpayment_name=name,
+                                         overpayments=overpayments_to_df(overpayments=overpayment.overpayments))
+            summarises[name] = summarize_loan(schedule)
+            schedules[name] = schedule
+
+    return Result(schedules=schedules, summarise=summarises)
