@@ -2,9 +2,9 @@ import numpy_financial as npf
 import streamlit as st
 
 from calculator.calculation import calculate_result
-from dashboard.sidebar import sidebar
+from dashboard.sidebar import display_sidebar
 from calculator.loan_data import LoanData, LoanSummary
-from plot_generator import plot_remaining_balance, plot_total_loan_cost, plot_loan_duration
+from dashboard.plot_generator import plot_remaining_balance, plot_total_loan_cost, plot_loan_duration
 from utils import round_math
 from . import app_state
 
@@ -74,11 +74,11 @@ def display_calculation():
         plot_loan_duration(result.schedules)
 
 
-def main():
-    sidebar()
+def display_dashboard():
+    display_sidebar()
     if state.calculate_schedule:
         display_calculation()
 
 
 if __name__ == '__main__':
-    main()
+    display_dashboard()

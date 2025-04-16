@@ -3,8 +3,26 @@ from calculator.loan_data import LoanData
 from calculator.overpayment import Overpayment, OverpaymentType, OverpaymentData
 import streamlit as st
 
+from utils import language_labels
+
 state = app_state
 _ = state.translation
+
+
+def get_language_option():
+    lang_code = st.session_state.get('language', 'en')
+    label = language_labels[lang_code]['label']
+    options = language_labels[lang_code]['options']
+
+    current_option = options[0] if lang_code == 'en' else options[1]
+    chosen = st.sidebar.selectbox(label, options, index=options.index(current_option))
+
+    if lang_code == 'en' and (chosen != 'English'):
+        state.language = 'pl'
+    elif lang_code == 'pl' and (chosen != 'Polski'):
+        state.language = 'en'
+
+    state.get_translation(lang_code=lang_code)
 
 
 def one_time_overpayment_option() -> Overpayment:
@@ -146,6 +164,7 @@ def get_loan_parameters():
                                loan_annual_rate=annual_rate,
                                months=months)
 
+
 def is_include_prepayment():
     is_analysis_constant_overpayment = st.sidebar.toggle(_('Include prepayment'), value=False)
     if is_analysis_constant_overpayment:
@@ -171,7 +190,8 @@ def is_include_prepayment():
                             overpayments=[constant_overpayment_by_payment]))
     else:
         state.is_analysis_constant_overpayment = False
-        #todo - remove constant_overpayments from overpayments_set
+        # todo - remove constant_overpayments from overpayments_set
+
 
 def is_include_custom_overpayment():
     is_add_custom_overpayments = st.sidebar.toggle(_('Current custom overpayments'), value=False)
@@ -187,12 +207,12 @@ def is_include_custom_overpayment():
         st.sidebar.title(_('Current custom overpayments'))
         display_custom_overpayment_set()
 
-def sidebar():
+
+def display_sidebar():
+    get_language_option()
     get_loan_parameters()
     is_include_prepayment()
     is_include_custom_overpayment()
 
     if st.sidebar.button(_('Calculate Loan Schedule')):
         state.calculate_schedule = True
-
-

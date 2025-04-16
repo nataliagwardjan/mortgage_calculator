@@ -3,9 +3,9 @@ import pandas as pd
 from pandas import DataFrame
 
 from dashboard import app_state
-from loan_data import LoanSummary
-from loan_schedule import ScheduleUnit
-from overpayment import OverpaymentType, Overpayment, OverpaymentData, overpayments_to_df
+from .loan_data import LoanSummary
+from .loan_schedule import ScheduleUnit
+from .overpayment import OverpaymentType, Overpayment, OverpaymentData, overpayments_to_df
 from utils import OVERPAYMENT_IS_CONSTANT, OVERPAYMENT_VALUE, OVERPAYMENT_START, OVERPAYMENT_END, round_math, \
     OVERPAYMENT_TYPE
 
@@ -186,4 +186,4 @@ def calculate_result() -> Result:
             summarises[name] = summarize_loan(schedule)
             schedules[name] = schedule
 
-    return Result(schedules=schedules, summarise=summarises)
+    return Result(schedules=schedules, summarises=summarises)
