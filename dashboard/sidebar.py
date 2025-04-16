@@ -88,8 +88,10 @@ def generate_custom_overpayment():
 
     if overpayment is not None:
         if st.sidebar.button(_('Add')):
-            for overpayment_data in state.custom_overpayments_set:
+            print(f'Button "add" has been clicked')
+            for idx, overpayment_data in enumerate(state.custom_overpayments_set):
                 if overpayment_data.name == overpayment_name:
+                    print(f'Adding {overpayment} to {overpayment_data.name}, idx ={idx}')
                     overpayment_data.add_overpayment(overpayment)
                     break
         print(f'Custom overpayment set: {state.custom_overpayments_set}')
@@ -102,24 +104,38 @@ def add_custom_overpayments():
     custom_overpayments_set: list[OverpaymentData] = state.custom_overpayments_set
 
     overpayments_set_options = [item.name for item in custom_overpayments_set]
-    chosen_overpayment_set = st.sidebar.selectbox(label, overpayments_set_options)
-    st.sidebar.write(_('or'))
-    custom_overpayment_name = st.sidebar.text_input(_('Name your overpayment set: '))
+    chosen_overpayment_set = None
 
-    if custom_overpayment_name not in overpayments_set_options:
+    if overpayments_set_options:
+        if state.current_overpayment_name in overpayments_set_options:
+            selected_index = overpayments_set_options.index(state.current_overpayment_name)
+        else:
+            selected_index = 0
+        chosen_overpayment_set = st.sidebar.selectbox(
+            label,
+            overpayments_set_options,
+            index=selected_index
+        )
+
+        st.sidebar.write(_('or'))
+
+    custom_overpayment_name = st.sidebar.text_input(_('Name your overpayment set: '), key='custom_overpayment_name')
+
+    if custom_overpayment_name and (custom_overpayment_name not in overpayments_set_options):
         overpayment_data = OverpaymentData(name=custom_overpayment_name,
                                            overpayments=[])
         if custom_overpayments_set:
+            print(f'Custom overpayment {custom_overpayment_name}')
             state.custom_overpayments_set.append(overpayment_data)
         else:
             state.custom_overpayments_set = [overpayment_data]
         state.current_overpayment_name = custom_overpayment_name
         print(f'New custom overpayment has been added: {custom_overpayment_name}')
-    else:
+        generate_custom_overpayment()
+    elif chosen_overpayment_set:
         state.current_overpayment_name = chosen_overpayment_set
         print(f'{chosen_overpayment_set} has been chosen')
-
-    generate_custom_overpayment()
+        generate_custom_overpayment()
 
 
 def display_overpayment(overpayment: Overpayment, overpayment_idx: int, overpayment_data_idx: int):
@@ -141,7 +157,16 @@ def display_overpayment(overpayment: Overpayment, overpayment_idx: int, overpaym
 
 def display_overpayment_set(overpayment_set: OverpaymentData, overpayment_data_idx: int):
     overpayment_set_header = _('Overpayment set: ')
-    st.sidebar.write(f'{overpayment_set_header}{overpayment_set.name}')
+    st.sidebar.write(f'{overpayment_set_header}**{overpayment_set.name}**')
+    if st.sidebar.button(_(f'Remove'), key=f'remove_overpayment_data_{overpayment_data_idx}'):
+        print(f'Overpayment set {overpayment_data_idx}, name {overpayment_set.name} has been removed')
+        state.custom_overpayments_set.pop(overpayment_data_idx)
+        print(f'Custom overpayment set: {state.custom_overpayments_set}')
+        if state.custom_overpayments_set:
+            state.current_overpayment_name = state.custom_overpayments_set[0].name
+        else:
+            state.current_overpayment_name = None
+        st.rerun()
     for idx, overpayment in enumerate(overpayment_set.overpayments):
         display_overpayment(overpayment=overpayment, overpayment_idx=idx, overpayment_data_idx=overpayment_data_idx)
 
@@ -150,6 +175,7 @@ def display_custom_overpayment_set():
     st.sidebar.subheader(_('Custom overpayments sets: '))
     for idx, overpayment_data in enumerate(state.custom_overpayments_set):
         display_overpayment_set(overpayment_set=overpayment_data, overpayment_data_idx=idx)
+        st.sidebar.markdown('---')
 
 
 def get_loan_parameters():
@@ -190,7 +216,7 @@ def is_include_prepayment():
                             overpayments=[constant_overpayment_by_payment]))
     else:
         state.is_analysis_constant_overpayment = False
-        # todo - remove constant_overpayments from overpayments_set
+        state.overpayments_set = []
 
 
 def is_include_custom_overpayment():

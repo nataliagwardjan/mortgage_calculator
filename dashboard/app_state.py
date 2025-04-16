@@ -16,6 +16,7 @@ class AppState:
         self.current_overpayment_name: Optional[str] = None
         self.translation: Callable[[str], str] = self.get_translation('en')
         self.calculate_schedule: bool = False
+        self.clear_custom_overpayment_name: Optional[str] = None
 
     def set_language(self, lang_code: str):
         self.language = lang_code
@@ -42,5 +43,6 @@ class AppState:
             'is_analysis_constant_overpayment': self.is_analysis_constant_overpayment,
             'is_custom_overpayment': self.is_custom_overpayment,
             'current_overpayment_name': self.current_overpayment_name,
-            'calculate_schedule': self.calculate_schedule
+            'calculate_schedule': self.calculate_schedule,
+            'clear_custom_overpayment_name': self.clear_custom_overpayment_name
         }
