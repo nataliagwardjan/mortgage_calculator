@@ -74,9 +74,25 @@ def display_calculation():
         plot_loan_duration(result.schedules)
 
 
+def display_details():
+    st.subheader(_('Loan details:'))
+    loan_amount = _('Loan amount: ')
+    annual_rate = _('Annual rate: ')
+    loan_term = _('Loan Term: ')
+    init_payment = _('Initial payment: ')
+    initial_payment_value = round_math(npf.pmt(state.loan_data.loan_annual_rate/12, state.loan_data.months, -state.loan_data.loan_amount), 2)
+
+    st.write(f'{loan_amount}{state.loan_data.loan_amount} PLN')
+    st.write(f'{annual_rate}{round_math(state.loan_data.loan_annual_rate * 100, 2)}%')
+    st.write(f'{loan_term}{state.loan_data.months}')
+    st.write(f'{init_payment}{initial_payment_value} PLN')
+
+
 def display_dashboard():
     display_sidebar()
+    st.header(_('Mortgage Calculator with Overpayments'))
     if state.calculate_schedule:
+        display_details()
         display_calculation()
 
 
