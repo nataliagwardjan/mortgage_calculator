@@ -9,10 +9,10 @@ from utils import round_math
 from . import app_state
 
 state = app_state
-_ = state.translation
 
 
 def display_summary(summary: LoanSummary):
+    _ = state.translation
     years_and_text = _(' years and ')
     months_text = _(' months')
     loan_amount_text = _('Loan amount: ')
@@ -39,6 +39,7 @@ def display_loan_details():
     years = months // 12
     rest_months = months - (years * 12)
 
+    _ = state.translation
     years_and_text = _(' years and ')
     months_text = _(' months')
     loan_amount_text = _('Loan amount: ')
@@ -54,6 +55,7 @@ def display_loan_details():
 
 
 def display_calculation():
+    _ = state.translation
     result = calculate_result()
     loan_summary_text = _('Loan Summary: ')
     repayment_schedule_text = _('Repayment Schedule for ')
@@ -75,6 +77,7 @@ def display_calculation():
 
 
 def display_details():
+    _ = state.translation
     st.subheader(_('Loan details:'))
     loan_amount = _('Loan amount: ')
     annual_rate = _('Annual rate: ')
@@ -90,8 +93,10 @@ def display_details():
 
 def display_dashboard():
     display_sidebar()
+    _ = state.translation
     st.header(_('Mortgage Calculator with Overpayments'))
     if state.calculate_schedule:
+        print(f'State language = {state.language}')
         display_details()
         display_calculation()
 

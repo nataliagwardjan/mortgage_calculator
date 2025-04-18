@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-04-16 13:25+0200\n"
+"POT-Creation-Date: 2025-04-18 11:07+0200\n"
 "PO-Revision-Date: 2025-04-14 07:21+0200\n"
 "Last-Translator: Natalia Gwardjan\n"
 "Language: pl\n"
@@ -24,17 +24,18 @@ msgstr ""
 msgid "No overpayment"
 msgstr "Brak nadpłat"
 
-#: dashboard/dashboard.py:16 dashboard/dashboard.py:42
+#: dashboard/dashboard.py:16 dashboard/dashboard.py:43
 #: dashboard/plot_generator.py:54
 msgid " years and "
 msgstr " lat(a) i "
 
-#: dashboard/dashboard.py:17 dashboard/dashboard.py:43
+#: dashboard/dashboard.py:17 dashboard/dashboard.py:44
 #: dashboard/plot_generator.py:55
 msgid " months"
 msgstr " miesięcy(e)"
 
-#: dashboard/dashboard.py:18 dashboard/dashboard.py:44
+#: dashboard/dashboard.py:18 dashboard/dashboard.py:45
+#: dashboard/dashboard.py:82
 msgid "Loan amount: "
 msgstr "Kwota kredytu: "
 
@@ -50,33 +51,49 @@ msgstr "Całkowity koszt kredytu"
 msgid "Last month: "
 msgstr "Ostani miesiąc: "
 
-#: dashboard/dashboard.py:45
+#: dashboard/dashboard.py:46 dashboard/dashboard.py:83
 msgid "Annual rate: "
 msgstr "Roczna stopa oprocentowania: "
 
-#: dashboard/dashboard.py:46
+#: dashboard/dashboard.py:47
 msgid "Loan term: "
 msgstr "Długość okresu kredytowania: "
 
-#: dashboard/dashboard.py:47
+#: dashboard/dashboard.py:48
 msgid "Initial Monthly Payment: "
 msgstr "Początkowa miesięczna rata kredytu: "
 
-#: dashboard/dashboard.py:49
+#: dashboard/dashboard.py:50
 msgid "Loan Details"
 msgstr "Szczególy kredytu"
 
-#: dashboard/dashboard.py:58
+#: dashboard/dashboard.py:60
 msgid "Loan Summary: "
 msgstr "Podsumowanie kredytu: "
 
-#: dashboard/dashboard.py:59
+#: dashboard/dashboard.py:61
 msgid "Repayment Schedule for "
 msgstr "Harmonogram spłat dla "
 
-#: dashboard/dashboard.py:60
+#: dashboard/dashboard.py:62
 msgid "Diagrams for comparison"
 msgstr "Wykresy do porównań"
+
+#: dashboard/dashboard.py:81
+msgid "Loan details:"
+msgstr "Szczegóły kredytu"
+
+#: dashboard/dashboard.py:84
+msgid "Loan Term: "
+msgstr "Długość okresu kredytowania: "
+
+#: dashboard/dashboard.py:85
+msgid "Initial payment: "
+msgstr "Początkowa miesięczna rata kredytu: "
+
+#: dashboard/dashboard.py:97
+msgid "Mortgage Calculator with Overpayments"
+msgstr "Kalkulator kredytowy z uwzględnieniem nadpłat"
 
 #: dashboard/plot_generator.py:15 dashboard/plot_generator.py:61
 msgid "Month"
@@ -102,111 +119,111 @@ msgstr "Koszty"
 msgid "Loan Term Length"
 msgstr "Długość okresu kredytowania (msc)"
 
-#: dashboard/sidebar.py:12
+#: dashboard/sidebar.py:34
 msgid "Month of Overpayment"
 msgstr "Miesiąc, w którym nadpłacasz"
 
-#: dashboard/sidebar.py:26
+#: dashboard/sidebar.py:49
 msgid "Overpayment for Entire Loan Term (PLN)"
 msgstr "Nadpłaty w całym okresie kredytowania (PLN)"
 
-#: dashboard/sidebar.py:28
+#: dashboard/sidebar.py:51
 msgid "Keep Fixed Payment for Entire Loan Term"
 msgstr "Utrzymuj stałą wartość raty przez cały okres kredytowania"
 
-#: dashboard/sidebar.py:39
+#: dashboard/sidebar.py:63
 msgid "Start Month of Overpayment Range"
 msgstr "Pierwszy miesiąc, w którym nadpłacasz"
 
-#: dashboard/sidebar.py:40
+#: dashboard/sidebar.py:64
 msgid "End Month of Overpayment Range"
 msgstr "Ostatni miesiąc, w którym nadpłacasz"
 
-#: dashboard/sidebar.py:55
+#: dashboard/sidebar.py:80
 msgid "Select Overpayment Type"
 msgstr "Wybierz typ nadpłat"
 
-#: dashboard/sidebar.py:55 dashboard/sidebar.py:61
+#: dashboard/sidebar.py:80 dashboard/sidebar.py:86
 msgid "One-time"
 msgstr "Nadpłata jednorazowa"
 
-#: dashboard/sidebar.py:55 dashboard/sidebar.py:62
+#: dashboard/sidebar.py:80 dashboard/sidebar.py:87
 msgid "Range"
 msgstr "Nadpłata w podanym zakresie"
 
-#: dashboard/sidebar.py:55 dashboard/sidebar.py:60
+#: dashboard/sidebar.py:80 dashboard/sidebar.py:85
 msgid "Full Term"
 msgstr "Nadpłata w całym okresie kredytowania"
 
-#: dashboard/sidebar.py:69
+#: dashboard/sidebar.py:94
 msgid "Please select an overpayment option."
 msgstr "Wybierz typ nadpłat"
 
-#: dashboard/sidebar.py:72
+#: dashboard/sidebar.py:97
 msgid "Add"
 msgstr "Dodaj"
 
-#: dashboard/sidebar.py:83
+#: dashboard/sidebar.py:111
 msgid "Choose overpayment set: "
 msgstr "Wybierz zbiór nadpłat: "
 
-#: dashboard/sidebar.py:88
+#: dashboard/sidebar.py:128
 msgid "or"
 msgstr "lub"
 
-#: dashboard/sidebar.py:89
+#: dashboard/sidebar.py:130
 msgid "Name your overpayment set: "
 msgstr "Nazwij swój zbiór nadpłat: "
 
-#: dashboard/sidebar.py:117
+#: dashboard/sidebar.py:160 dashboard/sidebar.py:171
 msgid "Remove"
 msgstr "Usuń"
 
-#: dashboard/sidebar.py:125
+#: dashboard/sidebar.py:169
 msgid "Overpayment set: "
 msgstr "Zbiory nadpłat: "
 
-#: dashboard/sidebar.py:132
+#: dashboard/sidebar.py:186
 msgid "Custom overpayments sets: "
 msgstr "Własne zbiory nadpłat: "
 
-#: dashboard/sidebar.py:138
+#: dashboard/sidebar.py:194
 msgid "Loan Parameters"
 msgstr "Konfigurator kredytu"
 
-#: dashboard/sidebar.py:139
+#: dashboard/sidebar.py:195
 msgid "Loan Amount (PLN)"
 msgstr "Kwota kredytu (PLN)"
 
-#: dashboard/sidebar.py:141
+#: dashboard/sidebar.py:197
 msgid "Annual Interest Rate (%)"
 msgstr "Roczna stopa oprocentowania (%)"
 
-#: dashboard/sidebar.py:143
+#: dashboard/sidebar.py:199
 msgid "Loan Term (months)"
 msgstr "Długość okresu kredytowania (msc)"
 
-#: dashboard/sidebar.py:150
+#: dashboard/sidebar.py:208
 msgid "Include prepayment"
 msgstr "Czy chcesz uwzględnić nadpłaty w całym okresie kredytowania"
 
-#: dashboard/sidebar.py:153
+#: dashboard/sidebar.py:211
 msgid "Const overpayment (PLN)"
 msgstr "Kwota nadpłat (PLN)"
 
-#: dashboard/sidebar.py:167
+#: dashboard/sidebar.py:225
 msgid "Overpayment with constant overpayment value"
 msgstr "Stała wartość nadpłat"
 
-#: dashboard/sidebar.py:170
+#: dashboard/sidebar.py:228
 msgid "Overpayment with constant monthly payment value"
 msgstr "Stała wartość raty"
 
-#: dashboard/sidebar.py:177 dashboard/sidebar.py:187
+#: dashboard/sidebar.py:237 dashboard/sidebar.py:247
 msgid "Current custom overpayments"
 msgstr "Aktualnie dodane nadpłaty"
 
-#: dashboard/sidebar.py:195
+#: dashboard/sidebar.py:257
 msgid "Calculate Loan Schedule"
 msgstr "Oblicz harmonogram spłat"
 
@@ -222,6 +239,4 @@ msgstr "Oblicz harmonogram spłat"
 #~ msgid "no overpayment"
 #~ msgstr "brak nadpłat"
 
-#~ msgid "Mortgage Calculator with Overpayments"
-#~ msgstr "Kalkulator kredytowy"
 

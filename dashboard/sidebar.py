@@ -6,11 +6,11 @@ import streamlit as st
 from utils import language_labels
 
 state = app_state
-_ = state.translation
 
 
 def get_language_option():
-    lang_code = st.session_state.get('language', 'en')
+    _ = state.translation
+    lang_code = state.language
     label = language_labels[lang_code]['label']
     options = language_labels[lang_code]['options']
 
@@ -19,14 +19,17 @@ def get_language_option():
 
     if lang_code == 'en' and (chosen != 'English'):
         state.language = 'pl'
+        state.set_language(lang_code=state.language)
     elif lang_code == 'pl' and (chosen != 'Polski'):
         state.language = 'en'
+        state.set_language(lang_code=state.language)
 
-    state.get_translation(lang_code=lang_code)
+
 
 
 def one_time_overpayment_option() -> Overpayment:
     loan_term = state.loan_data.months
+    _ = state.translation
     overpayment_month = st.sidebar.number_input(_('Month of Overpayment'), min_value=1, max_value=loan_term, value=10)
     overpayment_value = st.sidebar.number_input(_(f'Overpayment Value in Month {overpayment_month} (PLN)'),
                                                 min_value=0.0, value=20000.0)
@@ -41,6 +44,7 @@ def one_time_overpayment_option() -> Overpayment:
 
 def full_term_overpayment_option() -> Overpayment:
     loan_term = state.loan_data.months
+    _ = state.translation
     overpayment_value = st.sidebar.number_input(_(f'Overpayment for Entire Loan Term (PLN)'),
                                                 min_value=0.0, value=200.0)
     increase_overpayment = st.sidebar.checkbox(_('Keep Fixed Payment for Entire Loan Term'))
@@ -54,6 +58,7 @@ def full_term_overpayment_option() -> Overpayment:
 
 def range_overpayment_option() -> Overpayment:
     loan_term = state.loan_data.months
+    _ = state.translation
     start_month = st.sidebar.number_input(_('Start Month of Overpayment Range'), min_value=1, value=1)
     end_month = st.sidebar.number_input(_('End Month of Overpayment Range'), min_value=start_month, max_value=loan_term,
                                         value=10)
@@ -70,6 +75,7 @@ def range_overpayment_option() -> Overpayment:
 
 
 def generate_custom_overpayment():
+    _ = state.translation
     overpayment_option = st.sidebar.radio(_('Select Overpayment Type'), [_('One-time'), _('Range'), _('Full Term')])
     overpayment = None
     overpayment_name = state.current_overpayment_name
@@ -100,6 +106,7 @@ def generate_custom_overpayment():
 
 
 def add_custom_overpayments():
+    _ = state.translation
     label = _('Choose overpayment set: ')
     custom_overpayments_set: list[OverpaymentData] = state.custom_overpayments_set
 
@@ -139,6 +146,7 @@ def add_custom_overpayments():
 
 
 def display_overpayment(overpayment: Overpayment, overpayment_idx: int, overpayment_data_idx: int):
+    _ = state.translation
     if overpayment.overpayment_type.name == OverpaymentType.ONE_TIME.name:
         st.sidebar.text(f'Type: {overpayment.overpayment_type.name}, '
                         f'{overpayment.start_month}, '
@@ -156,6 +164,7 @@ def display_overpayment(overpayment: Overpayment, overpayment_idx: int, overpaym
 
 
 def display_overpayment_set(overpayment_set: OverpaymentData, overpayment_data_idx: int):
+    _ = state.translation
     overpayment_set_header = _('Overpayment set: ')
     st.sidebar.write(f'{overpayment_set_header}**{overpayment_set.name}**')
     if st.sidebar.button(_(f'Remove'), key=f'remove_overpayment_data_{overpayment_data_idx}'):
@@ -172,6 +181,7 @@ def display_overpayment_set(overpayment_set: OverpaymentData, overpayment_data_i
 
 
 def display_custom_overpayment_set():
+    _ = state.translation
     st.sidebar.subheader(_('Custom overpayments sets: '))
     for idx, overpayment_data in enumerate(state.custom_overpayments_set):
         display_overpayment_set(overpayment_set=overpayment_data, overpayment_data_idx=idx)
@@ -179,6 +189,7 @@ def display_custom_overpayment_set():
 
 
 def get_loan_parameters():
+    _ = state.translation
     st.sidebar.header(_('Loan Parameters'))
     loan_amount = st.sidebar.number_input(_('Loan Amount (PLN)'), min_value=10000.0, max_value=50000000.0,
                                           value=450000.0) * 1.0
@@ -192,6 +203,7 @@ def get_loan_parameters():
 
 
 def is_include_prepayment():
+    _ = state.translation
     is_analysis_constant_overpayment = st.sidebar.toggle(_('Include prepayment'), value=False)
     if is_analysis_constant_overpayment:
         state.is_analysis_constant_overpayment = True
@@ -220,6 +232,7 @@ def is_include_prepayment():
 
 
 def is_include_custom_overpayment():
+    _ = state.translation
     is_add_custom_overpayments = st.sidebar.toggle(_('Current custom overpayments'), value=False)
 
     if is_add_custom_overpayments:
@@ -239,6 +252,6 @@ def display_sidebar():
     get_loan_parameters()
     is_include_prepayment()
     is_include_custom_overpayment()
-
+    _ = state.translation
     if st.sidebar.button(_('Calculate Loan Schedule')):
         state.calculate_schedule = True

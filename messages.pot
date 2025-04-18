@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-04-16 13:25+0200\n"
+"POT-Creation-Date: 2025-04-18 11:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,17 +22,18 @@ msgstr ""
 msgid "No overpayment"
 msgstr ""
 
-#: dashboard/dashboard.py:16 dashboard/dashboard.py:42
+#: dashboard/dashboard.py:16 dashboard/dashboard.py:43
 #: dashboard/plot_generator.py:54
 msgid " years and "
 msgstr ""
 
-#: dashboard/dashboard.py:17 dashboard/dashboard.py:43
+#: dashboard/dashboard.py:17 dashboard/dashboard.py:44
 #: dashboard/plot_generator.py:55
 msgid " months"
 msgstr ""
 
-#: dashboard/dashboard.py:18 dashboard/dashboard.py:44
+#: dashboard/dashboard.py:18 dashboard/dashboard.py:45
+#: dashboard/dashboard.py:82
 msgid "Loan amount: "
 msgstr ""
 
@@ -48,32 +49,48 @@ msgstr ""
 msgid "Last month: "
 msgstr ""
 
-#: dashboard/dashboard.py:45
+#: dashboard/dashboard.py:46 dashboard/dashboard.py:83
 msgid "Annual rate: "
 msgstr ""
 
-#: dashboard/dashboard.py:46
+#: dashboard/dashboard.py:47
 msgid "Loan term: "
 msgstr ""
 
-#: dashboard/dashboard.py:47
+#: dashboard/dashboard.py:48
 msgid "Initial Monthly Payment: "
 msgstr ""
 
-#: dashboard/dashboard.py:49
+#: dashboard/dashboard.py:50
 msgid "Loan Details"
 msgstr ""
 
-#: dashboard/dashboard.py:58
+#: dashboard/dashboard.py:60
 msgid "Loan Summary: "
 msgstr ""
 
-#: dashboard/dashboard.py:59
+#: dashboard/dashboard.py:61
 msgid "Repayment Schedule for "
 msgstr ""
 
-#: dashboard/dashboard.py:60
+#: dashboard/dashboard.py:62
 msgid "Diagrams for comparison"
+msgstr ""
+
+#: dashboard/dashboard.py:81
+msgid "Loan details:"
+msgstr ""
+
+#: dashboard/dashboard.py:84
+msgid "Loan Term: "
+msgstr ""
+
+#: dashboard/dashboard.py:85
+msgid "Initial payment: "
+msgstr ""
+
+#: dashboard/dashboard.py:97
+msgid "Mortgage Calculator with Overpayments"
 msgstr ""
 
 #: dashboard/plot_generator.py:15 dashboard/plot_generator.py:61
@@ -100,111 +117,111 @@ msgstr ""
 msgid "Loan Term Length"
 msgstr ""
 
-#: dashboard/sidebar.py:12
+#: dashboard/sidebar.py:34
 msgid "Month of Overpayment"
 msgstr ""
 
-#: dashboard/sidebar.py:26
+#: dashboard/sidebar.py:49
 msgid "Overpayment for Entire Loan Term (PLN)"
 msgstr ""
 
-#: dashboard/sidebar.py:28
+#: dashboard/sidebar.py:51
 msgid "Keep Fixed Payment for Entire Loan Term"
 msgstr ""
 
-#: dashboard/sidebar.py:39
+#: dashboard/sidebar.py:63
 msgid "Start Month of Overpayment Range"
 msgstr ""
 
-#: dashboard/sidebar.py:40
+#: dashboard/sidebar.py:64
 msgid "End Month of Overpayment Range"
 msgstr ""
 
-#: dashboard/sidebar.py:55
+#: dashboard/sidebar.py:80
 msgid "Select Overpayment Type"
 msgstr ""
 
-#: dashboard/sidebar.py:55 dashboard/sidebar.py:61
+#: dashboard/sidebar.py:80 dashboard/sidebar.py:86
 msgid "One-time"
 msgstr ""
 
-#: dashboard/sidebar.py:55 dashboard/sidebar.py:62
+#: dashboard/sidebar.py:80 dashboard/sidebar.py:87
 msgid "Range"
 msgstr ""
 
-#: dashboard/sidebar.py:55 dashboard/sidebar.py:60
+#: dashboard/sidebar.py:80 dashboard/sidebar.py:85
 msgid "Full Term"
 msgstr ""
 
-#: dashboard/sidebar.py:69
+#: dashboard/sidebar.py:94
 msgid "Please select an overpayment option."
 msgstr ""
 
-#: dashboard/sidebar.py:72
+#: dashboard/sidebar.py:97
 msgid "Add"
 msgstr ""
 
-#: dashboard/sidebar.py:83
+#: dashboard/sidebar.py:111
 msgid "Choose overpayment set: "
 msgstr ""
 
-#: dashboard/sidebar.py:88
+#: dashboard/sidebar.py:128
 msgid "or"
 msgstr ""
 
-#: dashboard/sidebar.py:89
+#: dashboard/sidebar.py:130
 msgid "Name your overpayment set: "
 msgstr ""
 
-#: dashboard/sidebar.py:117
+#: dashboard/sidebar.py:160 dashboard/sidebar.py:171
 msgid "Remove"
 msgstr ""
 
-#: dashboard/sidebar.py:125
+#: dashboard/sidebar.py:169
 msgid "Overpayment set: "
 msgstr ""
 
-#: dashboard/sidebar.py:132
+#: dashboard/sidebar.py:186
 msgid "Custom overpayments sets: "
 msgstr ""
 
-#: dashboard/sidebar.py:138
+#: dashboard/sidebar.py:194
 msgid "Loan Parameters"
 msgstr ""
 
-#: dashboard/sidebar.py:139
+#: dashboard/sidebar.py:195
 msgid "Loan Amount (PLN)"
 msgstr ""
 
-#: dashboard/sidebar.py:141
+#: dashboard/sidebar.py:197
 msgid "Annual Interest Rate (%)"
 msgstr ""
 
-#: dashboard/sidebar.py:143
+#: dashboard/sidebar.py:199
 msgid "Loan Term (months)"
 msgstr ""
 
-#: dashboard/sidebar.py:150
+#: dashboard/sidebar.py:208
 msgid "Include prepayment"
 msgstr ""
 
-#: dashboard/sidebar.py:153
+#: dashboard/sidebar.py:211
 msgid "Const overpayment (PLN)"
 msgstr ""
 
-#: dashboard/sidebar.py:167
+#: dashboard/sidebar.py:225
 msgid "Overpayment with constant overpayment value"
 msgstr ""
 
-#: dashboard/sidebar.py:170
+#: dashboard/sidebar.py:228
 msgid "Overpayment with constant monthly payment value"
 msgstr ""
 
-#: dashboard/sidebar.py:177 dashboard/sidebar.py:187
+#: dashboard/sidebar.py:237 dashboard/sidebar.py:247
 msgid "Current custom overpayments"
 msgstr ""
 
-#: dashboard/sidebar.py:195
+#: dashboard/sidebar.py:257
 msgid "Calculate Loan Schedule"
 msgstr ""
 
